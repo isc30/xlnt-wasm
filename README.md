@@ -25,6 +25,9 @@ You can take a look here: [Excel-ent experiment with WebAssembly](https://blog.c
         sheet.cell("B2").value_str("asd");
 
         book.download("demo.xlsx");
+        
+        sheet.delete();
+        book.delete();
     });
 </script>
 ```
