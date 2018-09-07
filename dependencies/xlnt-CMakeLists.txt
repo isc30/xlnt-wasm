@@ -10,6 +10,6 @@ ExternalProject_Add(xlnt-remote
   BINARY_DIR        "${CMAKE_BINARY_DIR}/xlnt-build"
   CONFIGURE_COMMAND ""
   BUILD_COMMAND     ""
-  #INSTALL_COMMAND   ""
-  #TEST_COMMAND      ""
+  INSTALL_COMMAND   ""
+  TEST_COMMAND      ""
 )

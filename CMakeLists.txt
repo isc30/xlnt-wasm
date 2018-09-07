@@ -3,6 +3,8 @@ project(xlnt-wasm VERSION 1.0.0 LANGUAGES CXX)
 
 set(CMAKE_VERBOSE_MAKEFILE OFF)
 
+include(${CMAKE_SOURCE_DIR}/cmake/FunctionAddExternal.txt)
+
 if(DEFINED ENV{EMSCRIPTEN})
     set(CMAKE_TOOLCHAIN_FILE "$ENV{EMSCRIPTEN}/cmake/Modules/Platform/Emscripten.cmake"
         CACHE PATH "emscripten toolchain" FORCE)

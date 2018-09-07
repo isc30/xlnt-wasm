@@ -1,12 +1,8 @@
-#include <iostream>
-#include <emscripten.h>
-#include <emscripten/bind.h>
-
 #include "embind_helper.hpp"
 
 std::string typeOf(emscripten::val value)
 {
-    return value.typeof().as<std::string>();
+    return value.typeOf().as<std::string>();
 }
 
 void throwError(const std::string& msg)
