@@ -1,4 +1,4 @@
-JS-WebAssembly port of [XLNT library](https://github.com/tfussell/xlnt)
+WebAssembly bindings for the [XLNT library](https://github.com/tfussell/xlnt)
 
 ## Blog posts
 
