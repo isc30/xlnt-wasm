@@ -44,7 +44,7 @@ set_target_properties(bindings PROPERTIES
     CMAKE_CXX_EXTENSIONS OFF
     OUTPUT_NAME "xlnt"
     SUFFIX ".js"
-    LINK_FLAGS "-s WASM=1 --bind -s DEMANGLE_SUPPORT=1 -s EXPORT_NAME=\"'module_xlnt'\" -s MODULARIZE=1")
+    LINK_FLAGS "--bind -s WASM=1 -s EXPORT_NAME=\"'module_xlnt'\" -s MODULARIZE=1")
 
 add_dependencies(bindings xlnt)
 target_link_libraries(bindings PRIVATE xlnt)
