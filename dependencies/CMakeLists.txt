@@ -18,9 +18,16 @@ if(result)
   message(FATAL_ERROR "Build step for xlnt failed: ${result}")
 endif()
 
-# Add xlnt directly to our build.
-set(STATIC ON)
+# Add 'xlnt' target
+
+SET(STATIC ON CACHE BOOL "Build libxlnt as static library" FORCE)
+
 add_subdirectory(
     ${CMAKE_BINARY_DIR}/xlnt-src
     ${CMAKE_BINARY_DIR}/xlnt-build
     EXCLUDE_FROM_ALL)
+
+target_compile_options(xlnt
+  PRIVATE
+    -O3
+    $<$<COMPILE_LANGUAGE:CXX>:-std=c++14>)
