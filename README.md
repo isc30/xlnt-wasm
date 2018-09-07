@@ -1,10 +1,10 @@
 JS-WebAssembly port of [XLNT library](https://github.com/tfussell/xlnt)
 
-# Explanation
+## Blog posts
 
-I'm writing a series of posts in my blog about this topic:
+I'm writing a series of posts in my blog about porting C++ to WASM:
 
-- why does this project exist?
+- why? real world reasons
 - small proof of concepts
 - how to create proper bindings
 - etc etc
