@@ -113,7 +113,7 @@
             sheet.delete();
         }
 
-        module_xlnt({
+        load_xlnt({
             locateFile: function(url) { return './dist/' + url; }
         }).then(function(xlnt)
         {
