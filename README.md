@@ -22,7 +22,7 @@ You can take a look here: [Excel-ent experiment with WebAssembly](https://blog.c
         book = new xlnt.workbook();
         sheet = book.active_sheet();
 
-        sheet.cell("B2").value_str("asd");
+        sheet.using_cell("B2", c => c.set_value("asd"));
 
         book.download("demo.xlsx");
         
