@@ -12,8 +12,14 @@ endif()
 
 add_subdirectory(dependencies)
 
-add_executable(bindings ${PROJECT_SOURCE_DIR}/src/bindings.cpp)
-target_link_libraries(bindings PRIVATE -O3)
+add_executable(bindings "")
+
+target_sources(bindings
+    PRIVATE
+        "${CMAKE_CURRENT_LIST_DIR}/src/bindings.cpp"
+        "${CMAKE_CURRENT_LIST_DIR}/src/embind_helper.cpp"
+)
+
 target_include_directories(bindings
     PUBLIC
         $<INSTALL_INTERFACE:include>
@@ -21,6 +27,8 @@ target_include_directories(bindings
     PRIVATE
         ${CMAKE_CURRENT_SOURCE_DIR}/src
 )
+
+target_link_libraries(bindings PRIVATE -O3)
 
 target_compile_options(bindings
     PRIVATE
@@ -34,7 +42,7 @@ set_target_properties(bindings PROPERTIES
     CMAKE_CXX_EXTENSIONS OFF
     OUTPUT_NAME "xlnt"
     SUFFIX ".js"
-    LINK_FLAGS "--bind -s WASM=1 -s DEMANGLE_SUPPORT=1")
+    LINK_FLAGS "-s WASM=1 -s DEMANGLE_SUPPORT=1 --bind")
 
 add_dependencies(bindings xlnt)
 target_link_libraries(bindings PRIVATE xlnt)
