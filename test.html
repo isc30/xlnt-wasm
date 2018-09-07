@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <script src="./dist/xlnt.js"></script>
+    <script>
+
+        var metadata = [];
+
+        function getMetadata(col, row)
+        {
+            metadata[col] = metadata[col] || [];
+            return metadata[col][row] || false;
+        }
+
+        function setMetadata(col, row, data)
+        {
+            metadata[col] = metadata[col] || [];
+            metadata[col][row] = data;
+        }
+
+        function markCellsToSkip(col, row, skipCols, skipRows)
+        {
+            for (let c = col; c <= col + skipCols; ++c)
+            {
+                for (let r = row; r <= row + skipRows; ++r)
+                {
+                    if (c === col && r === row)
+                    {
+                        continue;
+                    }
+                    
+                    setMetadata(c, r, true);
+                }
+            }
+        }
+
+        function downloadTable(xlnt)
+        {
+            book = new xlnt.workbook();
+            sheet = book.active_sheet();
+
+            offset = [ 0, 0 ];
+            table = document.getElementById("exportable");
+
+            rows = table.querySelectorAll("tr");
+
+            currentRowIndex = offset[0];
+            for (let rowIndex = 0;
+                rowIndex < rows.length;
+                ++rowIndex)
+            {
+                ++currentRowIndex;
+                row = rows[rowIndex];
+
+                columns = row.querySelectorAll("th,td");
+                currentColumnIndex = offset[1];
+
+                for (let columnIndex = 0;
+                    columnIndex < columns.length;
+                    ++columnIndex)
+                {
+                    column = columns[columnIndex];
+                    ++currentColumnIndex;
+
+                    cellMetadata = getMetadata(currentColumnIndex, currentRowIndex);
+                    while (cellMetadata)
+                    {
+                        ++currentColumnIndex;
+                        cellMetadata = getMetadata(currentColumnIndex, currentRowIndex);
+                    }
+
+                    value = column.innerText;
+                    
+                    if (value !== "")
+                    {
+                        sheet.using_cell(
+                            currentColumnIndex, currentRowIndex,
+                            c => c.set_value(isNaN(value)
+                                ? value
+                                : parseFloat(value)));
+                    }
+
+                    colspan = Math.max((column.colSpan || 0) - 1, 0);
+                    rowspan = Math.max((column.rowSpan || 0) - 1, 0);
+
+                    sheet.merge_cells(
+                        currentColumnIndex, currentRowIndex,
+                        currentColumnIndex + colspan, currentRowIndex + rowspan);
+
+                    markCellsToSkip(
+                        currentColumnIndex, currentRowIndex,
+                        colspan, rowspan);
+                }
+            };
+
+            sheet.using_cell("G8", c => c.set_value(2.34444));
+            sheet.using_cell("G9", c => c.set_value(null));
+            sheet.using_cell("G10", c => c.set_value(undefined));
+            sheet.using_cell("G11", c => c.set_value(true));
+
+            console.log(sheet.using_cell("G32", c => c.column()));
+            console.log(sheet.using_cell("G32", c => c.row()));
+
+            sheet.using_cell("G13", c => c.set_formula("=B1"));
+
+            sheet.using_cell("H13", c => c.set_hyperlink("https://codeisc.com"));
+            sheet.using_cell("H14", c => c.set_hyperlink("https://codeisc.com", "code isc"));
+
+            book.download("test.xlsx");
+
+            book.delete();
+            sheet.delete();
+        }
+        
+        module_xlnt().then(function(xlnt)
+        {
+            downloadTable(xlnt);
+        });
+    </script>
+  </head>
+  <body>
+
+    <h1>Just WOW... this is so great</h1>
+
+    <table id="exportable" border="1">
+      <thead>
+          <tr>
+              <th colspan="1" rowspan="1"></th>
+              <th>shape</th>
+              <th colspan="1" rowspan="2">circle</th>
+              <th colspan="1" rowspan="2">triangle</th>
+              <th rowspan="2">Totals</th>
+          </tr>
+          <tr>
+              <th>color</th>
+              <th></th>
+          </tr>
+      </thead>
+      <tbody>
+          <tr>
+              <th rowspan="1" colspan="2">blue</th>
+              <td>1</td>
+              <td>2</td>
+              <td>3</td>
+          </tr>
+          <tr>
+              <th rowspan="1" colspan="2">yellow</th>
+              <td>2</td>
+              <td>1</td>
+              <td>3</td>
+          </tr>
+          <tr>
+              <th colspan="2">Totals</th>
+              <td>3</td>
+              <td>3</td>
+              <td>6</td>
+          </tr>
+      </tbody>
+    </table>
+
+    <div id="console"></div>
+    
+    <script>
+      // Replace console.log to display messages in the DIV
+      console.log = (function (old_function, div_log) { 
+        return function (text) {
+            old_function(text);
+            div_log.innerHTML += "<br/>" + text;
+        };
+      } (console.log.bind(console), document.getElementById("console")));
+    </script>
+
+  </body>
+</html>

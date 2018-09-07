@@ -44,7 +44,17 @@ set_target_properties(bindings PROPERTIES
     CMAKE_CXX_EXTENSIONS OFF
     OUTPUT_NAME "xlnt"
     SUFFIX ".js"
-    LINK_FLAGS "-s WASM=1 -s DEMANGLE_SUPPORT=1 --bind")
+    LINK_FLAGS "-s WASM=1 --bind -s DEMANGLE_SUPPORT=1 -s EXPORT_NAME=\"'module_xlnt'\" -s MODULARIZE=1")
 
 add_dependencies(bindings xlnt)
 target_link_libraries(bindings PRIVATE xlnt)
+
+add_custom_command(TARGET bindings POST_BUILD 
+    COMMAND ${CMAKE_COMMAND} -E copy_if_different
+    xlnt.js
+    ${CMAKE_CURRENT_SOURCE_DIR}/dist/xlnt.js)
+
+add_custom_command(TARGET bindings POST_BUILD 
+    COMMAND ${CMAKE_COMMAND} -E copy_if_different
+    xlnt.wasm
+    ${CMAKE_CURRENT_SOURCE_DIR}/dist/xlnt.wasm)
