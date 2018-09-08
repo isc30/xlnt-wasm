@@ -1,7 +1,7 @@
 function(add_external libraryname sourcedir bindir)
 
     configure_file(
-        ${libraryname}-CMakeLists.txt
+        ${libraryname}.cmake
         ${CMAKE_BINARY_DIR}/${libraryname}-download/CMakeLists.txt)
 
     execute_process(COMMAND ${CMAKE_COMMAND} -G "${CMAKE_GENERATOR}" .
@@ -24,5 +24,11 @@ function(add_external libraryname sourcedir bindir)
         ${sourcedir}
         ${bindir}
         EXCLUDE_FROM_ALL)
+
+    foreach(expected_target ${ARGN})
+        if (NOT TARGET ${expected_target})
+            message(FATAL_ERROR "external target ${expected_target} not found")
+        endif()
+    endforeach(expected_target)
 
 endfunction()
