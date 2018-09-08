@@ -1,7 +1,12 @@
-JS/WebAssembly port of [XLNT library](https://github.com/tfussell/xlnt)
+WebAssembly bindings for the [XLNT library](https://github.com/tfussell/xlnt)
+
+## Blog posts
+
+I'm writing a series of posts in my blog about porting C++ to WASM.
+You can take a look here: [Excel-ent experiment with WebAssembly](https://blog.codeisc.com/2018/08/28/xlnt-wasm-intro.html)
 
 ## Demo
-[Simple test](http://codeisc.com/xlnt/)
+[Simple test and proof of concept in JavaScript that exports a HTML table to excel (with rowspan and colspan)](http://codeisc.com/xlnt/)
 
 ```html
 <script src="./xlnt.js"></script>
@@ -11,9 +16,12 @@ JS/WebAssembly port of [XLNT library](https://github.com/tfussell/xlnt)
         book = new xlnt.workbook();
         sheet = book.active_sheet();
 
-        sheet.cell("B2").value_str("asd");
+        sheet.using_cell("B2", c => c.set_value("asd"));
 
         book.download("demo.xlsx");
+        
+        sheet.delete();
+        book.delete();
     });
 </script>
 ```
