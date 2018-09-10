@@ -32,10 +32,29 @@ EMSCRIPTEN_BINDINGS(workbook)
 {
     emscripten::class_<xlnt::workbook>("workbook")
 
+        .class_function("empty", &xlnt::workbook::empty)
+
         .constructor<>()
+
+        // create_sheet
+        // create_sheet(index)
+        // copy_sheet(sheet)
+        // copy_sheet(sheet, index)
 
         .function("active_sheet",
             &xlnt::workbook::active_sheet)
+
+        // sheet(index)
+
+        // remove_sheet(sheet)
+        // remove_sheet(index)
+
+        // apply_to_cells
+        // sheet_count
+
+        // has_title
+        // get_title
+        // set_title
 
         .function("save",
             static_cast<void(xlnt::workbook::*)(const std::string&) const>(

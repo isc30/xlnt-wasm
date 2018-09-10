@@ -38,6 +38,14 @@ EMSCRIPTEN_BINDINGS(worksheet)
 
         .function("merge_cells", emscripten::optional_override([](
             xlnt::worksheet& worksheet,
+            const std::string& cell0,
+            const std::string& cell1)
+        {
+            worksheet.merge_cells(xlnt::range_reference{ cell0, cell1 });
+        }))
+
+        .function("merge_cells", emscripten::optional_override([](
+            xlnt::worksheet& worksheet,
             std::uint32_t startCol, std::uint32_t startRow,
             std::uint32_t endCol, std::uint32_t endRow)
         {
