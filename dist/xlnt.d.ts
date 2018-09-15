@@ -37,9 +37,10 @@ declare interface worksheet extends deletable
 declare interface cell
 {
     has_value(): boolean;
-    get_value(): string;
+    get_value_str(): string;
     get_value_bool(): boolean;
     get_value_number(): number;
+    get_value(): number | string | boolean | undefined;
     set_value(value: number | string | boolean | null | undefined): void;
     clear_value(): void;
 

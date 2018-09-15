@@ -4,6 +4,7 @@
 #include <emscripten/bind.h>
 
 #include <xlnt/xlnt.hpp>
+#include <variant>
 
 #include "../embind_helper.hpp"
 
@@ -14,7 +15,7 @@ EMSCRIPTEN_BINDINGS(cell)
         .function("has_value",
             &xlnt::cell::has_value)
 
-        .function("get_value",
+        .function("get_value_str",
             &xlnt::cell::to_string)
 
         .function("get_value_bool",
@@ -22,6 +23,26 @@ EMSCRIPTEN_BINDINGS(cell)
 
         .function("get_value_number",
             &xlnt::cell::value<double>)
+
+        .function("get_value", emscripten::optional_override([](
+            xlnt::cell& cell)
+        {
+            switch (cell.data_type())
+            {                
+                case xlnt::cell_type::boolean:
+                    return emscripten::val(cell.value<bool>());
+
+                case xlnt::cell_type::number:
+                    return emscripten::val(cell.value<double>());
+                
+                case xlnt::cell_type::inline_string:
+                case xlnt::cell_type::shared_string:
+                    return emscripten::val(cell.value<std::string>());
+
+                default:
+                    return emscripten::val::undefined();
+            }
+        }))
 
         .function("set_value", emscripten::optional_override([](
             xlnt::cell& cell,
