@@ -2,7 +2,7 @@ WebAssembly bindings for the [XLNT library](https://github.com/tfussell/xlnt)
 
 ## Blog posts
 
-I'm writing a series of posts in my blog about porting C++ to WASM.
+I'm writing a series of posts in my blog about porting C++ to WASM.<br/>
 You can take a look here: [Excel-ent experiment with WebAssembly](https://blog.codeisc.com/2018/08/28/xlnt-wasm-intro.html)
 
 ## Demo
