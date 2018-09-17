@@ -1,0 +1,45 @@
+{
+    "name": "xlnt",
+    "version": "1.0.0",
+    "description": "WebAssembly version of XLNT library for Excel xlsx manipulation",
+    "main": "./dist/xlnt.js",
+    "files": [
+      "dist",
+      "README.md"
+    ],
+    "typescript": {
+      "definition": "./dist/xlnt.d.ts"
+    },
+    "typings": "./dist/xlnt.d.ts",
+    "types": "./dist/xlnt.d.ts",
+    "author": {
+      "name": "Ivan Sanz-Carasa",
+      "email": "ivansanzcarasa@gmail.com",
+      "url": "https://github.com/isc30"
+    },
+    "bugs": {
+      "url": "https://github.com/tfussell/xlnt/issues"
+    },
+    "repository": {
+      "type": "git",
+      "url": "https://github.com/tfussell/xlnt"
+    },
+    "homepage": "https://github.com/tfussell/xlnt#readme",
+    "scripts": {},
+    "dependencies": {},
+    "devDependencies": {},
+    "directories": {
+      "test": "test",
+      "lib": "dist"
+    },
+    "license": "MIT",
+    "keywords": [
+      "xlnt",
+      "excel",
+      "wasm",
+      "webassembly",
+      "xlsx",
+      "typescript",
+      "collections"
+    ]
+  }
