@@ -10,7 +10,7 @@ declare interface xlnt
 
 declare interface deletable
 {
-    delete();
+    delete(): void;
 }
 
 declare class workbook implements deletable
@@ -18,7 +18,7 @@ declare class workbook implements deletable
     static empty(): workbook;
 
     constructor();
-    delete();
+    delete(): void;
     active_sheet(): worksheet;
     save(fileName: string): void;
     download(fileName: string): void;
