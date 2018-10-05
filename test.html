@@ -103,7 +103,8 @@
             console.log(sheet.using_cell("G32", c => c.column()));
             console.log(sheet.using_cell("G32", c => c.row()));
 
-            sheet.using_cell("G13", c => c.set_formula("=B1"));
+            sheet.using_cell("G13", c => { c.set_formula("=B1"); c.set_fill("#ff00ff"); });
+            sheet.using_cell("G14", c => { c.set_formula("=B1"); c.set_fill("00ff00"); });
 
             sheet.using_cell("H13", c => c.set_hyperlink("https://codeisc.com"));
             sheet.using_cell("H14", c => c.set_hyperlink("https://codeisc.com", "code isc"));

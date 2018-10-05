@@ -54,6 +54,8 @@ declare interface cell
     get_formula(): string;
     set_formula(formula: string): void;
     clear_formula(): void;
+
+    set_fill(color: string): void;
 }
 
 type workbook_constructor = new() => workbook;

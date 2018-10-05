@@ -116,5 +116,16 @@ EMSCRIPTEN_BINDINGS(cell)
 
         .function("clear_formula",
             &xlnt::cell::clear_formula)
+
+        .function("set_fill", emscripten::optional_override([](
+            xlnt::cell& cell,
+            const std::string& color)
+        {
+            auto normalizedString = color[0] == '#'
+                ? color.substr(1, color.length())
+                : color;
+
+            cell.fill(xlnt::fill::solid(xlnt::color(xlnt::rgb_color(normalizedString))));
+        }))
     ;
 }

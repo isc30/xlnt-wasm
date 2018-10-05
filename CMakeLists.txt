@@ -36,10 +36,10 @@ target_compile_options(bindings
     PRIVATE
         -O3
         -Wall
-        $<$<COMPILE_LANGUAGE:CXX>:-std=c++17>)
+        $<$<COMPILE_LANGUAGE:CXX>:-std=c++14>)
 
 set_target_properties(bindings PROPERTIES
-    CXX_STANDARD 17
+    CXX_STANDARD 14
     CXX_STANDARD_REQUIRED ON
     CMAKE_CXX_EXTENSIONS OFF
     OUTPUT_NAME "xlnt"
