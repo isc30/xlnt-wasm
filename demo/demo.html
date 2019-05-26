@@ -1,0 +1,15 @@
+<script src="../dist/xlnt.js"></script>
+<script>
+    load_xlnt().then(function(xlnt)
+    {
+        book = new xlnt.workbook();
+        sheet = book.active_sheet();
+
+        sheet.using_cell("B2", c => c.set_value("asd"));
+
+        book.download("demo.xlsx");
+        
+        sheet.delete();
+        book.delete();
+    });
+</script>
