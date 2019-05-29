@@ -1,6 +1,6 @@
 {
     "name": "xlnt",
-    "version": "1.0.0",
+    "version": "1.1.0",
     "description": "WebAssembly version of XLNT library for Excel xlsx manipulation",
     "main": "./dist/xlnt.js",
     "files": [
