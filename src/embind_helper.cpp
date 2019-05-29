@@ -7,10 +7,10 @@ std::string typeOf(emscripten::val value)
 
 void throwError(const std::string& msg)
 {
-    EM_ASM_({ throw Pointer_stringify($0); }, msg.c_str());
+    EM_ASM_({ throw UTF8ToString($0); }, msg.c_str());
 }
 
 void throwTypeError(const std::string& msg)
 {
-    EM_ASM_({ throw new TypeError(Pointer_stringify($0)); }, msg.c_str());
+    EM_ASM_({ throw new TypeError(UTF8ToString($0)); }, msg.c_str());
 }
