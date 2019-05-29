@@ -5,10 +5,7 @@ set(CMAKE_VERBOSE_MAKEFILE OFF)
 
 include(${CMAKE_SOURCE_DIR}/cmake/FunctionAddExternal.cmake)
 
-if(DEFINED ENV{EMSCRIPTEN})
-    set(CMAKE_TOOLCHAIN_FILE "$ENV{EMSCRIPTEN}/cmake/Modules/Platform/Emscripten.cmake"
-        CACHE PATH "emscripten toolchain" FORCE)
-else()
+if(NOT DEFINED ENV{EMSCRIPTEN})
     message(FATAL_ERROR "Emscripten not found. Set EMSCRIPTEN environment variable to point to the emscripten root directory")
 endif()
 
@@ -44,7 +41,7 @@ set_target_properties(bindings PROPERTIES
     CMAKE_CXX_EXTENSIONS OFF
     OUTPUT_NAME "xlnt"
     SUFFIX ".js"
-    LINK_FLAGS "--bind -s ALLOW_MEMORY_GROWTH=1 -s WASM=1 -s EXPORT_NAME=\"'load_xlnt'\" -s MODULARIZE=1")
+    LINK_FLAGS "--bind -s ALLOW_MEMORY_GROWTH=1 -s WASM=1 -s EXPORT_NAME=\"'load_xlnt'\" -s MODULARIZE=1 -s EMBIND_STD_STRING_IS_UTF8=1")
 
 add_dependencies(bindings xlnt)
 target_link_libraries(bindings PRIVATE xlnt)

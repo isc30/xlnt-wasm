@@ -10,7 +10,7 @@ void download(xlnt::workbook& workbook, const std::string& fileName)
     workbook.save(fileName);
 
     EM_ASM_({
-        fileName = Pointer_stringify($0);
+        fileName = UTF8ToString($0);
         fileContent = [FS.readFile(fileName)];
 
         mime = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
