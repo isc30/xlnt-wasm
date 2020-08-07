@@ -1,4 +1,4 @@
-WebAssembly bindings for the [XLNT library](https://github.com/tfussell/xlnt){:target="_blank"}
+WebAssembly bindings for the [XLNT library](https://github.com/tfussell/xlnt)
 
 ## NPM
 
